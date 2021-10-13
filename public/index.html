@@ -8,11 +8,37 @@
 </head>
 <body>
   <nav>
-    <button class="nav-link" onclick="gotoPage('/page1/1')">Page 1</button>
-    <button class="nav-link" onclick="gotoPage('/page2')">Page 2</button>
+    <button onclick="gotoPage('/')">List benchmarks</button>
+    <button onclick="gotoPage('/new-benchmark')">Add benchmark</button>
   </nav>
-  <article class="page" id="example-page-1" hidden>Example Page 1 with param <span id="page-1-id">1</span></article>
-  <article class="page" id="example-page-2" hidden>Example Page 2</article>
+  <main>
+    <article id="new-benchmark" hidden>
+      <form name="new-benchmark">
+        <div>
+          <label for="benchmark-name">Benchmark name</label>
+          <input type="text" name="benchmark-name"></input>
+        </div>
+        <div>
+          <label for="benchmark-result">Benchmark result</label>
+          <input type="number" name="benchmark-result"></input>
+        </div>
+        <div>
+          <button type="submit" name="benchmark-submit" onclick="submitBenchmark(event)">Submit</button>
+        </div>
+      </form>
+    </article>
+    <article id="benchmarks" hidden>
+      <table>
+        <tr>
+          <th>Framework Name</th>
+          <th>Result</th>
+          <th>Detail link</th>
+        </tr>
+      </table>
+    </article>
+    <article id="benchmark-details" hidden>
+    </article>
+  </main>
   <script src="/micro-framework.js"></script>
   <script src="/script.js"></script>
 </body>
