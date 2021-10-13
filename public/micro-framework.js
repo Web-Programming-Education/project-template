@@ -1,9 +1,8 @@
 /**
- * Define routes in JS: path(+parameters) & id
- * Match routes with parameters (:param)
- *
+ * This is our routes array,
+ * It stores all registered routes
+ * and is used to find the page elements for a given route
  */
-
 const routes = [];
 
 /**
@@ -20,7 +19,11 @@ function registerRoute(pathString, pageId, guard=null) {
     throw new Error(`Path ${pathString} should start with a "/"`)
   }
 
+  // split the path in it's segments -> /abc/def => ['', 'abc', 'def']
   const pathSegments = pathString.split('/');
+
+  // transform the segements
+  // so that we can easily distinguish params in the path form normal path segments
   const path = pathSegments.map(s => {
     if (s.startsWith(':')) {
       return { type: 'param', name: s.substr(1) };
@@ -28,6 +31,8 @@ function registerRoute(pathString, pageId, guard=null) {
       return { type: 'path', name: s };
     }
   })
+
+  // add the route to our global array
   routes.push({ path, pageId, guard });
 }
 
@@ -38,10 +43,14 @@ function registerRoute(pathString, pageId, guard=null) {
  */
 function isRouteMatch(path, route) {
   const pathSegments = path.split('/');
+
+  // if the length of path segements is not equal, it can't match
   if (pathSegments.length !== route.path.length) {
     return false;
   }
 
+  // check if for every segment the name matches with the given route
+  // or if the route has a param at that location (so every string is allowed)
   return pathSegments.every((e,i) => e === route.path[i].name || route.path[i].type === 'param');
 }
 
