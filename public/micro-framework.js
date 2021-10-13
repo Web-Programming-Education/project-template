@@ -89,6 +89,8 @@ async function checkGuard(guard, params) {
     } else {
       return result;
     }
+  } else {
+    return true;
   }
 }
 
@@ -107,20 +109,23 @@ async function gotoPageAsync(path, match) {
     return;
   }
 
-  const currentRoutes = document.querySelectorAll('.page:not([hidden])');
-  // TODO: return if the page is already active
-  // currentRoutes.some(e => e.id)
-  currentRoutes.forEach(e => e.setAttribute('hidden', ''));
+  routes.forEach(r => {
+    const element = document.querySelector(`#${r.pageId}`);
+    if (element) {
+      element.setAttribute('hidden', '');
+    }
+  });
+
   pageElement.removeAttribute('hidden');
 
-  window.history.pushState({ pageId: pageId, path }, "", path);
+  window.history.pushState({ pageId: pageId, path }, "", encodeURI(path));
 
   const event = new CustomEvent('navigation', { bubbles: true, detail: {params, pageId, pageElement} });
   pageElement.dispatchEvent(event);
 }
 
 function doInitialNavigation() {
-  let pathname = window.location.pathname;
+  let pathname = decodeURI(window.location.pathname);
   if (!pathname.startsWith('/')) {
     pathname = '/' + pathname;
   }
