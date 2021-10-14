@@ -1,7 +1,7 @@
 benchmarks = [];
 
 function handleRouterNavigation(event) {
-  console.log(`Route navigated to ${JSON.stringify(event.detail)}`)
+  console.log(`Route navigated to ${JSON.stringify(event.detail)}`);
 }
 
 function renderBenchmarks(event) {
@@ -84,7 +84,13 @@ document.addEventListener("DOMContentLoaded", function() {
   // register your routes
   registerRoute('/', 'benchmarks');
   registerRoute('/new-benchmark', 'new-benchmark');
-  registerRoute('/benchmarks/:name', 'benchmark-details', (p) => benchmarks.some(b => b.name === p.name))
+  registerRoute('/benchmarks/:name', 'benchmark-details', (p) => {
+    const isValid = benchmarks.some(b => b.name === p.name);
+    if (!isValid) {
+      gotoPage('/')
+    }
+    return isValid;
+  })
 
   // trigger the initial page navigation after routes are registered
   // reads the url an navigates to the given page
