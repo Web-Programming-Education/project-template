@@ -4,15 +4,38 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Projekt Title goes here</title>
+  <title>Super Javscript Benchmarks</title>
 </head>
 <body>
   <nav>
-    <button class="nav-link" onclick="gotoPage('/page1/1')">Page 1</button>
-    <button class="nav-link" onclick="gotoPage('/page2')">Page 2</button>
+    <button class="nav-link" onclick="gotoPage('/')">Benchmark Übersicht</button>
+    <button class="nav-link" onclick="gotoPage('/benchmarks/add')">Benchmark hinzufügen</button>
   </nav>
-  <article class="page" id="example-page-1" hidden>Example Page 1 with param <span id="page-1-id">1</span></article>
-  <article class="page" id="example-page-2" hidden>Example Page 2</article>
+  <article class="page" id="benchmarks-overview" hidden>
+    <h1>Benchmark Übersicht</h1>
+    <table>
+      <tr>
+        <th>Framework Name</th>
+        <th>Score</th>
+      </tr>
+    </table>
+  </article>
+  <article class="page" id="add-benchmark" hidden>
+    <h1>Benchmark hinzufügen</h1>
+    <form name="add-benchmark" onsubmit="addBenchmark(event)">
+      <div>
+        <label for="framework-name">Framework Name:</label>
+        <input type="text" name="framework-name"/>
+      </div>
+      <div>
+        <label for="score">Score:</label>
+        <input type="number" name="score">
+      </div>
+      <div>
+        <button type="submit" name="benchmark-submit">Absenden</button>
+      </div>
+    </form>
+  </article>
   <script src="/micro-framework.js"></script>
   <script src="/script.js"></script>
 </body>

@@ -9,7 +9,8 @@ const port = 3000;
 app.use(express.json());
 app.use(express.static("public"));
 
-app.post("/benchmarks", function(req, res) {
+app.post("/api/benchmarks", function(req, res) {
+  // TODO: validation!!!
   const fileName = "benchmarks.json";
   const benchmarkDb = readData(fileName);
   const data = req.body;
@@ -22,6 +23,12 @@ app.post("/benchmarks", function(req, res) {
   writeData(fileName, benchmarkDb);
 
   res.status(201).end();
+})
+
+app.get("/api/benchmarks", function(req, res) {
+  const fileName = "benchmarks.json";
+  const benchmarkDb = readData(fileName);
+  res.json(benchmarkDb.benchmarks);
 })
 
 app.get( "*", function( req, res ) {
