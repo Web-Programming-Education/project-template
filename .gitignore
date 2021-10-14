@@ -1,2 +1,4 @@
 node_modules/
-*.json
+
+# Add your data files here if you use git
+benchmarks.json
